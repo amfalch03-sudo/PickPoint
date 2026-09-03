@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PickPoint</title>
+    <link rel="preconnect" href="https://unpkg.com" />
+    <link rel="preconnect" href="https://a.basemaps.cartocdn.com" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIINfQ9kEMAbdY8f+2ATQbbg3T0G6c8ylrM="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="styles.css?v=7" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar" aria-label="PickPoint kontrollpanel">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">P</div>
+          <div>
+            <h1>PickPoint</h1>
+            <p>Velg et område. Finn et tilfeldig punkt.</p>
+          </div>
+        </div>
+
+        <section class="panel-section">
+          <h2>Område</h2>
+          <div class="segmented" role="group" aria-label="Velg tegnemodus">
+            <button class="mode-button is-active" type="button" data-mode="circle">Sirkel</button>
+            <button class="mode-button" type="button" data-mode="polygon">Punkter</button>
+          </div>
+
+          <label class="field" for="radius">
+            <span>Radius</span>
+            <strong id="radiusValue">5 km</strong>
+          </label>
+          <input id="radius" type="range" min="0.1" max="50" step="0.1" value="5" />
+
+          <button id="clearButton" class="secondary-button" type="button">Nullstill område</button>
+        </section>
+
+        <section class="panel-section">
+          <h2>Treffpunkt</h2>
+          <label class="check-row">
+            <input id="allowLand" type="checkbox" checked />
+            <span>Land</span>
+          </label>
+          <label class="check-row">
+            <input id="allowWater" type="checkbox" checked />
+            <span>Vann</span>
+          </label>
+        </section>
+
+        <section class="panel-section">
+          <h2>Karttype</h2>
+          <select id="mapStyle" aria-label="Velg karttype">
+            <option value="standard">Standard</option>
+            <option value="satellite">Satellitt</option>
+            <option value="topo">Turkart</option>
+          </select>
+        </section>
+
+        <button id="pickButton" class="pick-button" type="button">PickPoint</button>
+
+        <section class="panel-section result-section">
+          <div class="section-head">
+            <h2>Koordinater</h2>
+            <select id="coordFormat" aria-label="Velg koordinatform">
+              <option value="decimal">Lat/Lon</option>
+              <option value="dms">DMS</option>
+              <option value="utm">UTM</option>
+            </select>
+          </div>
+          <output id="coordinateOutput" class="coordinate-output">Ingen punkt valgt</output>
+        </section>
+
+        <p id="status" class="status" role="status">
+          Trykk på kartet for å sette sentrum for sirkelen.
+        </p>
+      </aside>
+
+      <section class="map-wrap" aria-label="Interaktivt verdenskart">
+        <div id="map"></div>
+      </section>
+    </main>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+    <script src="https://unpkg.com/osmtogeojson"></script>
+    <script src="app.js?v=7"></script>
+  </body>
+</html>
